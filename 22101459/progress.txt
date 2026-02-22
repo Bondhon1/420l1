@@ -1,0 +1,61 @@
+Student ID: 22101459
+Teammate ID: 22101458
+Course: CSE 420 - Compiler Design
+SMART: Lab 1 - Lexical Analyzer & Syntax Analyzer.
+Date: 19 February 2026
+
+Intermediate Submission of PROGRESS Report.
+
+COMPLETED
+
+[1] Lexical Analyzer (22101459.l)
+    - Patterns delineated on:
+         Blank and spacing (line counter).
+         Identifiers (letter/underscore and then one or more alphanumeric characters).
+         Constant integer numbers (one or more digits).
+         E.g. 3.14, .314, 3.14E-10, 314E10, etc.
+    - Token recognition used due to:
+         All keywords: if, else, for, while, do, int, float, void, return, printf.
+         Addulations: ADDOP ( + -), MULOP (,/%,), INCOP (++), DECOP (--)
+, /, +, -, and.
+         Every relational operator: RELOP(<, >, ==, <=, >=, !=).
+         ASSIGNOP (=), LOGICOP (&&,   ), NOT (!)
+         All marks of punctuation LPAREN, RPAREN, LCURL, RCURL, LTHIRD, RTHIRD,
+          COMMA, COLON, SEMICOLON
+    - Token record: line number, type of token and lexeme to output file.
+
+[2] Syntax Analyzer (22101459.y)
+    - Complete grammar taken over Lab1CSyntaxAnalyzerGrammar.
+    - Rules implemented:
+         start, program, unit
+         definite (with and without parameters)
+         parameterlist
+         compoundstatement
+         vardeclaration, declarationlist
+         specifier (type)<|human|>typespecifier (void, float, int)
+         statements, statement
+         expressionstatement
+         expression, variable, logicexpression.
+         relexation, simplex, expression, term.
+         unaryexpression, factor
+         argumentlist, arguments
+    - Dangling other ambiguity fixed by %prec LOWERTHANELSE (no conflicts)
+    - The matched rules will record the rule name and the matching piece of code.
+    - Number of lines printed terminated end of log file.
+
+NOT YET DONE / PARTIAL
+
+Some keywords that have not been previously placed in lexer:
+    The Char, double, break, switch, case, default, continue, goto.
+Symbol table is still not implemented.
+Failure to implement error recovery.
+Multi-line and single-line comment support not provided.
+Until now there is no support of string literals.
+The grammar rule having PRINTLN token (sample output made use of printf(ID))
+  may should be changed after complete token set is made.
+
+KNOWN ISSUES
+
+The sample output and the format of the output can vary slightly on edge cases.
+The type specifiers of CHAR and the Double among others are not yet accepted.
+  as rules of type specificer grammar (only int, float, void are supported)
