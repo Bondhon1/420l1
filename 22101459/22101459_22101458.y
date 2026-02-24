@@ -26,7 +26,8 @@ void yyerror(char *s)
 /* Tokens */
 %token ID CONST_INT CONST_FLOAT
 %token INT FLOAT VOID
-%token IF FOR WHILE DO RETURN PRINTF
+%token IF FOR WHILE DO RETURN PRINTLN
+%token CHAR DOUBLE BREAK SWITCH CASE DEFAULT CONTINUE GOTO
 %token ADDOP MULOP INCOP DECOP
 %token RELOP ASSIGNOP LOGICOP NOT
 %token LPAREN RPAREN LCURL RCURL LTHIRD RTHIRD
@@ -238,9 +239,9 @@ statement : var_declaration
         outlog<<"while("<<$3->getname()<<")\n"<<$5->getname()<<endl<<endl;
         $$ = new symbol_info("while("+$3->getname()+")\n"+$5->getname(),"stmnt");
     }
-    | PRINTF LPAREN ID RPAREN SEMICOLON
+    | PRINTLN LPAREN ID RPAREN SEMICOLON
     {
-        outlog<<"At line no: "<<lines<<" statement : PRINTF LPAREN ID RPAREN SEMICOLON "<<endl<<endl;
+        outlog<<"At line no: "<<lines<<" statement : PRINTLN LPAREN ID RPAREN SEMICOLON "<<endl<<endl;
         outlog<<"printf("<<$3->getname()<<");"<<endl<<endl;
         $$ = new symbol_info("printf("+$3->getname()+");","stmnt");
     }

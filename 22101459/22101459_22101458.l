@@ -40,6 +40,25 @@ floatnum     ({digit}+\.{digit}*|\.{digit}+)([Ee][+-]?{digit}+)?|{digit}+[Ee][+-
 {ws}         { /* ignore whitespace */ }
 {newline}    { lines++; }
 
+"//"[^\n]*   { /* single-line comment, ignore */ }
+
+"/*"         {
+                /* multi-line comment */
+                int c;
+                while(1) {
+                    c = yyinput();
+                    if(c == '\n') lines++;
+                    else if(c == '*') {
+                        c = yyinput();
+                        if(c == '/') break;
+                        else if(c == '\n') lines++;
+                        else if(c == EOF) break;
+                        else unput(c);
+                    }
+                    else if(c == EOF) break;
+                }
+             }
+
 {floatnum}   {
                 symbol_info *s = new symbol_info((string)yytext,"CONST_FLOAT");
                 yylval = (YYSTYPE)s;
@@ -111,9 +130,57 @@ return       {
              }
 
 printf       {
-                loglist="Line no "+to_string(lines)+": Token <PRINTF> Lexeme "+yytext+" found\n\n";
+                loglist="Line no "+to_string(lines)+": Token <PRINTLN> Lexeme "+yytext+" found\n\n";
                 outlog<<loglist;
-                return PRINTF;
+                return PRINTLN;
+             }
+
+char         {
+                loglist="Line no "+to_string(lines)+": Token <CHAR> Lexeme "+yytext+" found\n\n";
+                outlog<<loglist;
+                return CHAR;
+             }
+
+double       {
+                loglist="Line no "+to_string(lines)+": Token <DOUBLE> Lexeme "+yytext+" found\n\n";
+                outlog<<loglist;
+                return DOUBLE;
+             }
+
+break        {
+                loglist="Line no "+to_string(lines)+": Token <BREAK> Lexeme "+yytext+" found\n\n";
+                outlog<<loglist;
+                return BREAK;
+             }
+
+switch       {
+                loglist="Line no "+to_string(lines)+": Token <SWITCH> Lexeme "+yytext+" found\n\n";
+                outlog<<loglist;
+                return SWITCH;
+             }
+
+case         {
+                loglist="Line no "+to_string(lines)+": Token <CASE> Lexeme "+yytext+" found\n\n";
+                outlog<<loglist;
+                return CASE;
+             }
+
+default      {
+                loglist="Line no "+to_string(lines)+": Token <DEFAULT> Lexeme "+yytext+" found\n\n";
+                outlog<<loglist;
+                return DEFAULT;
+             }
+
+continue     {
+                loglist="Line no "+to_string(lines)+": Token <CONTINUE> Lexeme "+yytext+" found\n\n";
+                outlog<<loglist;
+                return CONTINUE;
+             }
+
+goto         {
+                loglist="Line no "+to_string(lines)+": Token <GOTO> Lexeme "+yytext+" found\n\n";
+                outlog<<loglist;
+                return GOTO;
              }
 
 {id}         {
