@@ -28,7 +28,7 @@ void yyerror(char *s)
 %token INT FLOAT VOID
 %token IF FOR WHILE DO RETURN PRINTLN
 %token CHAR DOUBLE BREAK SWITCH CASE DEFAULT CONTINUE GOTO
-%token ADDOP MULOP INCOP
+%token ADDOP MULOP INCOP DECOP
 %token RELOP ASSIGNOP LOGICOP NOT
 %token LPAREN RPAREN LCURL RCURL LTHIRD RTHIRD
 %token COMMA COLON SEMICOLON
@@ -406,6 +406,12 @@ factor : variable
         outlog<<"At line no: "<<lines<<" factor : variable INCOP "<<endl<<endl;
         outlog<<$1->getname()<<"++"<<endl<<endl;
         $$ = new symbol_info($1->getname()+"++","factor");
+    }
+    | variable DECOP
+    {
+        outlog<<"At line no: "<<lines<<" factor : variable DECOP "<<endl<<endl;
+        outlog<<$1->getname()<<"--"<<endl<<endl;
+        $$ = new symbol_info($1->getname()+"--","factor");
     }
     ;
 

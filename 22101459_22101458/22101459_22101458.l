@@ -191,7 +191,7 @@ goto         {
                 return ID;
              }
 
-"++"|"--"    {
+"++"         {
                 symbol_info *s = new symbol_info((string)yytext,"INCOP");
                 yylval = (YYSTYPE)s;
                 loglist="Line no "+to_string(lines)+": Token <INCOP> Lexeme "+yytext+" found\n\n";
@@ -199,7 +199,13 @@ goto         {
                 return INCOP;
              }
 
-
+"--"         {
+                symbol_info *s = new symbol_info((string)yytext,"DECOP");
+                yylval = (YYSTYPE)s;
+                loglist="Line no "+to_string(lines)+": Token <DECOP> Lexeme "+yytext+" found\n\n";
+                outlog<<loglist;
+                return DECOP;
+             }
 
 "+"|"-"      {
                 symbol_info *s = new symbol_info((string)yytext,"ADDOP");
