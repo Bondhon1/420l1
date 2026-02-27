@@ -1,0 +1,85 @@
+===================================================
+  CSE 420 – Lab 2 Progress Tracker
+  Students: 22101459 & 22101458
+===================================================
+
+STATUS KEY:  [DONE]  [PARTIAL]  [TODO]
+
+---------------------------------------------------
+ 1. symbol_info.h
+---------------------------------------------------
+[DONE]  Base name/type fields
+[DONE]  symbol_kind  (VARIABLE / ARRAY / FUNCTION)
+[DONE]  data_type / return_type field
+[DONE]  array_size field
+[DONE]  param_count and param_details fields
+[DONE]  All getters / setters
+[DONE]  getname() alias for grammar action compatibility
+
+---------------------------------------------------
+ 2. scope_table.h
+---------------------------------------------------
+[DONE]  Constructor (bucket_count, unique_id, parent_scope)
+[DONE]  Destructor (deallocates all symbol_info pointers)
+[DONE]  hash_function  — sum of ASCII values % bucket_count
+[DONE]  insert_in_scope  — rejects duplicate in same scope
+[DONE]  lookup_in_scope  — returns symbol_info* or nullptr
+[DONE]  delete_from_scope — removes and deallocates entry
+[DONE]  print_scope_table — prints to log in required format
+        (Variable / Array / Function with correct field labels)
+
+---------------------------------------------------
+ 3. symbol_table.h
+---------------------------------------------------
+[DONE]  enter_scope  — creates new scope, logs "New ScopeTable with ID N created"
+[DONE]  exit_scope   — prints all scopes, deletes top, logs "Scopetable with ID N removed"
+[DONE]  insert       — delegates to current scope_table
+[DONE]  remove       — delegates to current scope_table
+[DONE]  lookup       — walks scope stack from top to bottom
+[DONE]  print_current_scope
+[DONE]  print_all_scopes  — wrapped in ##### delimiters, matches sample output
+
+---------------------------------------------------
+ 4. Lexer (22101459_22101458.l)
+---------------------------------------------------
+[DONE]  All keywords (if, else, for, while, return, int, float, void, …)
+[DONE]  Operators (+, -, *, /, %, ++, --, ==, !=, <=, >=, =, &&, ||, !)
+[DONE]  Punctuation  ( { } [ ] ( ) ; , )
+[DONE]  Identifiers, integer literals, float literals
+[DONE]  Whitespace ignored, newline increments line counter
+
+---------------------------------------------------
+ 5. Parser (22101459_22101458.y)
+---------------------------------------------------
+[DONE]  All grammar rules from grammer.txt
+[DONE]  Grammar rule logging to 22101459_22101458_log.txt
+[DONE]  Global scope entered by main() before yyparse()
+[DONE]  compound_statement: mid-rule action enters scope after '{'
+[DONE]  compound_statement: exit_scope called on '}' (prints + removes scope)
+[DONE]  parameter_list: accumulates pending_params / pending_param_details
+[DONE]  Function parameters inserted into function's body scope
+[DONE]  Regular variable declarations inserted via collected_vars in var_declaration
+[DONE]  Array declarations stored with size
+[DONE]  Function inserted into parent scope after compound_statement closes
+[DONE]  Multiple-declaration error reporting (logs but continues)
+[DONE]  Total line count printed at end of log
+[DONE]  Log file named 22101459_22101458_log.txt
+
+---------------------------------------------------
+ 6. Build / Run
+---------------------------------------------------
+[DONE]  script.sh  (yacc → flex → g++ compile → link → run)
+[DONE]  Tested build pipeline compiles without errors
+
+---------------------------------------------------
+ KNOWN LIMITATIONS / TODO
+---------------------------------------------------
+[TODO]  Function symbol is inserted *after* the body compound_statement
+        completes. If the function calls itself recursively, the name
+        won't be visible inside the body yet.
+[TODO]  No semantic type-checking (e.g. void variable, mismatched types).
+[TODO]  No duplicate-function-in-same-scope check before body is parsed.
+[TODO]  'do-while', 'switch/case', 'break', 'continue' tokens are lexed
+        but not in the grammar rules (not required by spec).
+
+===================================================
