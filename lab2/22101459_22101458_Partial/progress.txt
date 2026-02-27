@@ -1,0 +1,89 @@
+===================================================
+  CSE 420 – Lab 2 Progress Tracker  [PARTIAL]
+  Students: 22101459 & 22101458
+===================================================
+
+STATUS KEY:  [DONE]  [PARTIAL]  [TODO]
+
+---------------------------------------------------
+ 1. symbol_info.h
+---------------------------------------------------
+[DONE]   Basic name/type fields
+[DONE]   get_name(), set_name(), getname() alias
+[TODO]   symbol_kind field  (VARIABLE / ARRAY / FUNCTION)
+[TODO]   data_type / return_type field
+[TODO]   array_size field
+[TODO]   param_count and param_details fields
+[TODO]   Corresponding getters + setters
+
+---------------------------------------------------
+ 2. scope_table.h
+---------------------------------------------------
+[DONE]   Constructor (bucket_count, unique_id, parent_scope)
+[DONE]   Destructor (deallocates symbol_info pointers)
+[DONE]   hash_function  — sum of ASCII values % bucket_count
+[DONE]   insert_in_scope  — rejects duplicate in same scope
+[TODO]   lookup_in_scope  — need to iterate correct bucket
+[TODO]   delete_from_scope — find and erase from bucket list
+[TODO]   print_scope_table — currently prints name only;
+         need Variable/Array/Function details once
+         symbol_info extended fields are added
+
+---------------------------------------------------
+ 3. symbol_table.h
+---------------------------------------------------
+[DONE]   Constructor
+[DONE]   enter_scope — creates scope, logs message
+[PARTIAL] exit_scope — deletes scope and logs removal,
+          but does NOT yet print all scope tables
+          (print_all_scopes is stubbed/empty)
+[DONE]   insert — delegates to current_scope
+[TODO]   lookup — needs to walk scope stack upward
+[TODO]   print_all_scopes — currently prints empty block
+
+---------------------------------------------------
+ 4. Lexer (22101459_22101458.l)
+---------------------------------------------------
+[DONE]   All keywords
+[DONE]   All operators and punctuation
+[DONE]   Identifiers, integer, float literals
+[DONE]   Whitespace / newline handling
+
+---------------------------------------------------
+ 5. Parser (22101459_22101458.y)
+---------------------------------------------------
+[DONE]   All grammar rules included
+[DONE]   Grammar rule + code logging to log file
+[DONE]   Total line count at end of log
+[TODO]   Create symbol_table object in main()
+[TODO]   Enter global scope at start of main()
+[TODO]   compound_statement: enter scope on '{',
+         exit scope on '}', insert params into scope
+[TODO]   declaration_list: collect variable names/types
+[TODO]   var_declaration: insert variables into symtab
+[TODO]   parameter_list: accumulate param info
+[TODO]   func_definition: insert function into symtab
+[TODO]   start rule: print complete symbol table
+
+---------------------------------------------------
+ 6. Build / Run
+---------------------------------------------------
+[DONE]   script.sh ready
+
+---------------------------------------------------
+ NEXT STEPS
+---------------------------------------------------
+ 1. Extend symbol_info with kind, data_type, array_size,
+    param_count, param_details fields + getters/setters
+ 2. Complete scope_table::lookup_in_scope
+ 3. Complete scope_table::delete_from_scope
+ 4. Complete scope_table::print_scope_table
+ 5. Complete symbol_table::print_all_scopes
+ 6. Wire scope enter/exit into compound_statement
+ 7. Wire variable collection + insertion into
+    declaration_list + var_declaration
+ 8. Wire parameter collection into parameter_list
+ 9. Wire function insertion into func_definition
+10. Wire global scope creation into main()
+
+===================================================
