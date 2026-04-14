@@ -11,6 +11,8 @@ private:
     int array_size;
     int param_count;
     string param_details;
+    vector<string> param_types;
+    vector<string> arg_types;
 
 public:
     symbol_info(string name, string type)
@@ -39,6 +41,12 @@ public:
 
     void set_param_details(string det) { param_details = det; }
     string get_param_details() const { return param_details; }
+
+    void set_param_types(const vector<string> &types) { param_types = types; }
+    const vector<string> &get_param_types() const { return param_types; }
+
+    void set_arg_types(const vector<string> &types) { arg_types = types; }
+    const vector<string> &get_arg_types() const { return arg_types; }
 
     ~symbol_info() {}
 };
