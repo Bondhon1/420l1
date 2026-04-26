@@ -563,9 +563,9 @@ statement : var_declaration
 			
 			// Create AST node for for loop
 			ForNode* forNode = new ForNode(
-				(ExprNode*)$3->get_ast_node(),
-				(ExprNode*)$4->get_ast_node(),
-				(ExprNode*)$5->get_ast_node(),
+				$3->get_ast_node(),
+				$4->get_ast_node(),
+				$5->get_ast_node(),
 				(StmtNode*)$7->get_ast_node()
 			);
 			$$->set_ast_node(forNode);
@@ -1220,10 +1220,10 @@ factor	: variable  // factor can be void
 		
 		// Create AST nodes for increment
 		// For x++, equivalent to (x = x + 1)
-		VarNode* varNode = (VarNode*)$1->get_ast_node();
+		VarNode* varNode = dynamic_cast<VarNode*>($1->get_ast_node());
 		ConstNode* oneNode = new ConstNode("1", "int");
-		BinaryOpNode* addNode = new BinaryOpNode("+", varNode, oneNode, $1->getvartype());
-		AssignNode* assignNode = new AssignNode(varNode, addNode, $1->getvartype());
+		BinaryOpNode* addNode = new BinaryOpNode("+", varNode ? dynamic_cast<ExprNode*>(varNode->clone()) : nullptr, oneNode, $1->getvartype());
+		AssignNode* assignNode = new AssignNode(varNode ? dynamic_cast<VarNode*>(varNode->clone()) : nullptr, addNode, $1->getvartype());
 		$$->set_ast_node(assignNode);
 	}
 	| variable DECOP
@@ -1236,10 +1236,10 @@ factor	: variable  // factor can be void
 		
 		// Create AST nodes for decrement
 		// For x--, equivalent to (x = x - 1)
-		VarNode* varNode = (VarNode*)$1->get_ast_node();
+		VarNode* varNode = dynamic_cast<VarNode*>($1->get_ast_node());
 		ConstNode* oneNode = new ConstNode("1", "int");
-		BinaryOpNode* subNode = new BinaryOpNode("-", varNode, oneNode, $1->getvartype());
-		AssignNode* assignNode = new AssignNode(varNode, subNode, $1->getvartype());
+		BinaryOpNode* subNode = new BinaryOpNode("-", varNode ? dynamic_cast<ExprNode*>(varNode->clone()) : nullptr, oneNode, $1->getvartype());
+		AssignNode* assignNode = new AssignNode(varNode ? dynamic_cast<VarNode*>(varNode->clone()) : nullptr, subNode, $1->getvartype());
 		$$->set_ast_node(assignNode);
 	}
 	;
