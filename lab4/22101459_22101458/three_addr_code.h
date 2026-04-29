@@ -35,7 +35,6 @@ public:
         outcode << "\n//========== END OF CODE ==========\n";
     }
 
-    // You may add helper methods here
 };
 
 #endif // THREE_ADDR_CODE_H
